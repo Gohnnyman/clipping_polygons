@@ -295,38 +295,6 @@ void init()
     gluOrtho2D(0.0, SIZE - 1, 0.0, SIZE - 1);
 }
 
-void generate_polygon(Polygon &p, int M)
-{
-    Point P;
-    p.pts.clear();
-    for (int i = 0; i < M; ++i)
-    {
-        bool flag;
-        do
-        {
-            P.x = rand() % SIZE;
-            P.y = rand() % SIZE;
-            flag = true;
-            for (int j = 1; j < i - 1; ++j)
-                if (segments_intersect(p.pts[j - 1], p.pts[j], p.pts[i - 1], P))
-                {
-                    flag = false;
-                    break;
-                }
-            if (flag && i == M - 1)
-            {
-                for (int j = 2; j < i; ++j)
-                    if (segments_intersect(p.pts[j - 1], p.pts[j], P, p.pts[0]))
-                    {
-                        flag = false;
-                        break;
-                    }
-            }
-        } while (!flag);
-        p.pts.push_back(P);
-    }
-}
-
 void Keyboard_action(unsigned char _key, int _x, int _y)
 {
     exit(0);
@@ -341,6 +309,15 @@ void display()
 
     plgn1.pts = {{553, 495}, {181, 175}, {486, 71}, {61, 86}, {90, 200}};
     plgn2.pts = {{390, 424}, {579, 585}, {207, 12}, {68, 245}};
+
+    // plgn1.pts = {{80, 50}, {100, 300}, {300, 100}};
+    // plgn2.pts = {{390, 424}, {579, 585}, {207, 12}, {68, 245}};
+
+    // plgn1.pts = {{80, 50}, {100, 300}, {300, 100}};
+    // plgn2.pts = {{553, 495}, {181, 175}, {486, 71}, {61, 86}, {90, 200}};
+
+    // plgn1.pts = {{80, 50}, {100, 300}, {425, 400}, {400, 100}};
+    // plgn2.pts = {{390, 424}, {579, 585}, {590, 450}, {207, 12}, {68, 245}};
 
     int size = plgn1.pts.size();
     for (int i = 0; i < size; ++i)
